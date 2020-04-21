@@ -1,0 +1,30 @@
+{
+  "name": "eve-esi-client-mongo-provider",
+  "version": "0.0.1",
+  "description": "MongoDB provider for eve-esi-client",
+  "main": "./dist/index.js",
+  "author": "Michiel van der Velde <michiel@michielvdvelde.nl>",
+  "homepage": "http://github.com/MichielvdVelde/eve-sso",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MichielvdVelde/eve-sso.git"
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "keywords": [],
+  "license": "MIT",
+  "devDependencies": {
+    "@types/mongoose": "^5.7.12",
+    "typescript": "^3.8.3"
+  },
+  "peerDependencies": {
+    "@typegoose/typegoose": "^6.4.0",
+    "eve-esi-client": "^0.1.0",
+    "eve-sso": "^1.1.0",
+    "mongoose": "^5.9.10"
+  }
+}
