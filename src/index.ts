@@ -141,4 +141,28 @@ export default class MongoProvider implements Provider<
       scopes
     })
   }
+
+  public async deleteAccount (
+    owner: string
+  ) {
+    await AccountModel.deleteOne({
+      owner
+    })
+  }
+
+  public async deleteCharacter (
+    characterId: number
+  ) {
+    await CharacterModel.deleteOne({
+      characterId
+    })
+  }
+
+  public async deleteToken (
+    accessToken: string
+  ) {
+    await TokenModel.deleteOne({
+      accessToken
+    })
+  }
 }

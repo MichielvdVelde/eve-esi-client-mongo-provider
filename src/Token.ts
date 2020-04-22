@@ -69,6 +69,12 @@ export class Token {
 
     return this
   }
+
+  public async deleteToken (
+    this: DocumentType<Token>
+  ) {
+    await this.remove()
+  }
 }
 
 export const TokenModel = getModelForClass(

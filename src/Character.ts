@@ -66,6 +66,12 @@ export class Character {
       characterId: this.characterId
     })
   }
+
+  public async deleteCharacter (
+    this: DocumentType<Character>
+  ) {
+    await this.remove()
+  }
 }
 
 export const CharacterModel = getModelForClass(
