@@ -1,13 +1,13 @@
 {
-  "name": "eve-esi-client-mongo-provider",
-  "version": "0.1.0",
+  "name": "evesso-discord-mongoDB-provider",
+  "version": "0.1.1",
   "description": "MongoDB provider for eve-esi-client",
   "main": "./dist/index.js",
   "author": "Michiel van der Velde <michiel@michielvdvelde.nl>",
-  "homepage": "http://github.com/MichielvdVelde/eve-sso",
+  "homepage": "http://github.com/Atomic-Development/evesso-discord-mongoDB-provider",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MichielvdVelde/eve-sso.git"
+    "url": "git+https://github.com/Atomic-Development/evesso-discord-mongoDB-provider.git"
   },
   "files": [
     "dist"
@@ -22,9 +22,9 @@
     "typescript": "^3.8.3"
   },
   "peerDependencies": {
-    "@typegoose/typegoose": "^6.4.0",
-    "eve-esi-client": "^0.2.0",
+    "@typegoose/typegoose": "^7.3.2",
+    "eve-esi-client": "^0.3.0",
     "eve-sso": "^1.1.0",
-    "mongoose": "^5.9.10"
+    "mongoose": "^5.10.0"
   }
 }
