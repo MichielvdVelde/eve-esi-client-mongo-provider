@@ -30,8 +30,8 @@ export class Token {
   })
   public expires!: Date
 
-  @arrayProp({
-    items: String,
+  @prop({
+    type: String,
     default: []
   })
   public scopes: string[]
