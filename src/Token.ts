@@ -3,7 +3,6 @@
 import {
   DocumentType,
   prop,
-  arrayProp,
   getModelForClass
 } from '@typegoose/typegoose'
 
