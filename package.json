@@ -1,13 +1,13 @@
 {
-  "name": "evesso-discord-mongoDB-provider",
+  "name": "eve-esi-client-mongo-provider",
   "version": "0.1.1",
   "description": "MongoDB provider for eve-esi-client",
   "main": "./dist/index.js",
   "author": "Michiel van der Velde <michiel@michielvdvelde.nl>",
-  "homepage": "http://github.com/Atomic-Development/evesso-discord-mongoDB-provider",
+  "homepage": "http://github.com/MichielvdVelde/eve-esi-client-mongo-provider",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Atomic-Development/evesso-discord-mongoDB-provider.git"
+    "url": "git+https://github.com/MichielvdVelde/eve-esi-client-mongo-provider.git"
   },
   "files": [
     "dist"
