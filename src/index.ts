@@ -1,168 +1,140 @@
 'use strict'
 
 import {
-  Provider
+    Provider,
+    Account,
+    Character,
+    Token
 } from 'eve-esi-client'
 
 import {
-  DocumentType
+    DocumentType,
+    ReturnModelType
 } from '@typegoose/typegoose'
 
 import {
-  AccountModel,
-  Account
-} from './Account'
+    MongoAccount,
+    MongoAccountModel
+} from './MongoAccount'
 
 import {
-  CharacterModel,
-  Character
-} from './Character'
+    MongoCharacter,
+    MongoCharacterModel
+} from './MongoCharacter'
 
 import {
-  TokenModel,
-  Token
-} from './Token'
+    MongoToken,
+    MongoTokenModel
+} from './MongoToken'
 
 export default class MongoProvider implements Provider<
-  DocumentType<Account>,
-  DocumentType<Character>,
-  DocumentType<Token>
-  > {
-  public async getAccount (
-    owner: string,
-    onLogin?: boolean
-  ) {
-    const account = await AccountModel.findOne({
-      owner
-    })
-
-    if (!account) {
-      return
+ DocumentType<MongoAccount>,
+ DocumentType<MongoCharacter>,
+ DocumentType<MongoToken>
+> {
+    public async getAccount (
+        owner: string,
+        onLogin?: boolean
+    ) {
+        return MongoAccountModel.findOne({
+            owner
+        })
     }
 
-    if (onLogin) {
-      account.lastLoggedInOn = new Date()
-      await account.save()
+    public async getCharacter (
+        characterId: number,
+        onLogin?: boolean
+    ) {
+        return MongoCharacterModel.findOne({
+            characterId
+        })
     }
 
-    return account
-  }
+    public async getToken (
+        characterId: number,
+        scopes?: string | string[]
+    ) {
+        if (scopes) {
+            return MongoTokenModel.findOne({
+                characterId,
+                scopes: typeof scopes === 'string' ? scopes.split(' ') : scopes
+            })
+        }
 
-  public async getCharacter (
-    characterId: number,
-    onLogin?: boolean
-  ) {
-    const character = await CharacterModel.findOne({
-      characterId
-    })
-
-    if (!character) {
-      return
+        return MongoTokenModel.findOne({
+            characterId
+        })
     }
 
-    if (onLogin) {
-      character.lastLoggedInOn = new Date()
-      await character.save()
+    public async createAccount (
+        owner: string
+    ) {
+        return MongoAccountModel.create({
+            owner
+        })
     }
 
-    return character
-  }
-
-  public async getToken (
-    characterId: number,
-    scopes?: string | string[]
-  ) {
-    if (typeof scopes === 'string') {
-      scopes = scopes.split(' ')
+    public async createCharacter (
+        owner: string,
+        characterId: number,
+        characterName: string
+    ) {
+        return MongoCharacterModel.create({
+            owner,
+            characterId,
+            characterName
+        })
     }
 
-    let token: DocumentType<Token>
-
-    if (!scopes || !scopes.length) {
-      token = await TokenModel.findOne({
-        characterId
-      })
-    } else {
-      token = await TokenModel.findOne({
-        characterId,
-        scopes: { $all: scopes }
-      })
+    public async createToken (
+        characterId: number,
+        accessToken: string,
+        refreshToken: string,
+        expires: Date,
+        scopes?: string | string[]
+    ) {
+        return MongoTokenModel.create({
+            characterId,
+            accessToken,
+            refreshToken,
+            expires,
+            scopes: typeof scopes === 'string' ? scopes.split(' ') : scopes
+        })
     }
 
-    if (token) {
-      return token
-    }
-  }
+    public async deleteAccount (
+        owner: string
+    ) {
+        const account = await MongoAccountModel.findOne({
+            owner
+        }).exec()
 
-  public async createAccount (
-    owner: string
-  ) {
-    return AccountModel.create({
-      owner,
-      createdOn: new Date(),
-      lastLoggedInOn: new Date()
-    })
-  }
-
-  public async createCharacter (
-    owner: string,
-    characterId: number,
-    characterName: string
-  ) {
-    return CharacterModel.create({
-      owner,
-      createdOn: new Date(),
-      characterId,
-      characterName,
-      lastLoggedInOn: new Date()
-    })
-  }
-
-  public async createToken (
-    characterId: number,
-    accessToken: string,
-    refreshToken: string,
-    expires: Date,
-    scopes?: string | string[]
-  ) {
-    if (!scopes) {
-      scopes = []
+        if (account) {
+            await account.deleteAccount()
+        }
     }
 
-    if (typeof scopes === 'string') {
-      scopes = scopes.split(' ')
+    public async deleteCharacter (
+        characterId: number
+    ) {
+        const character = await MongoCharacterModel.findOne({
+            characterId
+        }).exec()
+
+        if (character) {
+            await character.deleteCharacter()
+        }
     }
 
-    return TokenModel.create({
-      characterId,
-      accessToken,
-      refreshToken,
-      expires,
-      scopes
-    })
-  }
+    public async deleteToken (
+        accessToken: string
+    ) {
+        const token = await MongoTokenModel.findOne({
+            accessToken
+        }).exec()
 
-  public async deleteAccount (
-    owner: string
-  ) {
-    await AccountModel.deleteOne({
-      owner
-    })
-  }
-
-  public async deleteCharacter (
-    characterId: number
-  ) {
-    await CharacterModel.deleteOne({
-      characterId
-    })
-  }
-
-  public async deleteToken (
-    accessToken: string
-  ) {
-    await TokenModel.deleteOne({
-      accessToken
-    })
-  }
+        if (token) {
+            await token.deleteToken()
+        }
+    }
 }
