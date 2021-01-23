@@ -17,7 +17,11 @@ for a more in-depth example.
 import ESI from 'eve-esi-client'
 import MongoProvider from 'eve-esi-client-mongo-provider'
 
-const provider = new MongoProvider()
+const provider = new MongoProvider('mongodb://localhost', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    dbName: 'esi'
+})
 
 const esi = new ESI({
     provider,
