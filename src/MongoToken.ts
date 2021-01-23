@@ -57,7 +57,13 @@ export class MongoToken implements Token {
             (<any>this).expires = expires
         }
 
-        // TODO: check and update scopes
+        if (scopes) {
+            if (typeof scopes === 'string') {
+                scopes = scopes.split(' ')
+            }
+
+            (<any>this).scopes = scopes
+        }
 
         if (this.isModified) {
             await this.save()
