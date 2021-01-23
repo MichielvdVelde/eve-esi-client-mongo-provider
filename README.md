@@ -34,6 +34,9 @@ const esi = new ESI({
 
 ### Extending the Provider
 
+In this example the `MongoAccount` is extended to include an
+`email` field.
+
 ```ts
 import {
     prop
@@ -56,6 +59,9 @@ import MongoProvider from 'eve-esi-client-mongo-provider'
 
 const provider = new MongoProvider<MyAccount>('mongodb://localhost')
 // ...
+const account = await provider.getAccount('<owner hash>')
+account.email = 'brad@example.com'
+await account.save()
 ```
 
 ## License
