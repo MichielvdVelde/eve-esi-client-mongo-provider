@@ -32,10 +32,14 @@ import {
     MongoTokenModel
 } from './MongoToken'
 
-export default class MongoProvider implements Provider<
- DocumentType<MongoAccount>,
- DocumentType<MongoCharacter>,
- DocumentType<MongoToken>
+export default class MongoProvider<
+A extends MongoAccount = MongoAccount,
+C extends MongoCharacter = MongoCharacter,
+T extends MongoToken = MongoToken
+> implements Provider<
+ DocumentType<A>,
+ DocumentType<C>,
+ DocumentType<T>
 > {
     public constructor (
         uris: string,
