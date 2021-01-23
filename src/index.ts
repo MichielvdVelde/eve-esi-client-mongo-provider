@@ -54,16 +54,20 @@ export default class MongoProvider implements Provider<
         characterId: number,
         scopes?: string | string[]
     ) {
-        if (scopes) {
+        if (typeof scopes === 'string') {
+            scopes = scopes.split(' ')
+        }
+
+        if (!scopes || !scopes.length) {
             return MongoTokenModel.findOne({
-                characterId,
-                scopes: typeof scopes === 'string' ? scopes.split(' ') : scopes
-            })
+                characterId
+            }).exec()
         }
 
         return MongoTokenModel.findOne({
-            characterId
-        })
+            characterId,
+            scopes: { $all: scopes }
+        }).exec()
     }
 
     public async createAccount (
