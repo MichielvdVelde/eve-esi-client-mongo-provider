@@ -2,8 +2,6 @@
 
 MongoDB provider for [eve-esi-client](https://github.com/MichielvdVelde/eve-esi).
 
-See that module for (some) documentation.
-
 ## Install
 
 ```
@@ -11,6 +9,9 @@ npm i eve-esi-client-mongo-provider [--save]
 ```
 
 ## Usage
+
+See [eve-esi-client](https://github.com/MichielvdVelde/eve-esi)
+for a more in-depth example.
 
 ```ts
 import ESI from 'eve-esi-client'
