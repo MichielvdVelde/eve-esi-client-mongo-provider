@@ -65,7 +65,7 @@ export class MongoToken implements Token {
             (<any>this).scopes = scopes
         }
 
-        if (this.isModified) {
+        if (this.isModified()) {
             await this.save()
         }
     }

@@ -50,7 +50,7 @@ export class MongoCharacter implements Character {
             (<any>this).characterName = characterName
         }
 
-        if (this.isModified) {
+        if (this.isModified()) {
             await this.save()
         }
     }
