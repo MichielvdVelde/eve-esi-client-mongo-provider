@@ -32,6 +32,32 @@ const esi = new ESI({
 })
 ```
 
+### Extending the Provider
+
+```ts
+import {
+    prop
+} from '@typegoose/typegoose'
+
+import {
+    MongoAccount
+} from 'eve-esi-client-mongo-provider'
+
+export default class MyAccount extends MongoAccount {
+    @prop({
+        unique: true
+    })
+    public email!: string
+}
+
+// ...
+
+import MongoProvider from 'eve-esi-client-mongo-provider'
+
+const provider = new MongoProvider<MyAccount>('mongodb://localhost')
+// ...
+```
+
 ## License
 
 Copyright 2020-2021 Michiel van der Velde.
