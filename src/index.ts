@@ -36,18 +36,36 @@ export default class MongoProvider implements Provider<
         owner: string,
         onLogin?: boolean
     ) {
-        return MongoAccountModel.findOne({
+        const account = await MongoAccountModel.findOne({
             owner
-        })
+        }).exec()
+
+        if (account) {
+            if (onLogin) {
+                account.lastLoggedIn = new Date()
+                await account.save()
+            }
+
+            return account
+        }
     }
 
     public async getCharacter (
         characterId: number,
         onLogin?: boolean
     ) {
-        return MongoCharacterModel.findOne({
+        const character = await MongoCharacterModel.findOne({
             characterId
-        })
+        }).exec()
+
+        if (character) {
+            if (onLogin) {
+                character.lastLoggedIn = new Date()
+                await character.save()
+            }
+
+            return character
+        }
     }
 
     public async getToken (
@@ -74,7 +92,8 @@ export default class MongoProvider implements Provider<
         owner: string
     ) {
         return MongoAccountModel.create({
-            owner
+            owner,
+            lastLoggedIn: new Date()
         })
     }
 
@@ -86,7 +105,8 @@ export default class MongoProvider implements Provider<
         return MongoCharacterModel.create({
             owner,
             characterId,
-            characterName
+            characterName,
+            lastLoggedIn: new Date()
         })
     }
 

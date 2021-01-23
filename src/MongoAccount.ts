@@ -22,6 +22,11 @@ export class MongoAccount implements Account {
     })
     public readonly owner!: string
 
+    @prop({
+        required: true
+    })
+    public readonly lastLoggedIn!: Date
+
     public async deleteAccount (
         this: DocumentType<MongoAccount>
     ) {

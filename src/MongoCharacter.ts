@@ -32,6 +32,11 @@ export class MongoCharacter implements Character {
     })
     public readonly characterName!: string
 
+    @prop({
+        required: true
+    })
+    public readonly lastLoggedIn!: Date
+
     public async updateCharacter (
         this: DocumentType<MongoCharacter>,
         owner: string,
@@ -63,15 +68,9 @@ export class MongoCharacter implements Character {
     public async deleteTokens (
         this: DocumentType<MongoCharacter>
     ) {
-        // TODO: Use deleteMany so we don't have to
-        // load the whole token documents
-        const tokens = await MongoTokenModel.find({
+        await MongoTokenModel.deleteMany({
             characterId: this.characterId
         }).exec()
-
-        for (const token of tokens) {
-            await token.deleteToken()
-        }
     }
     
 }
