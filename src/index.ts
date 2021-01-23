@@ -32,6 +32,18 @@ import {
     MongoTokenModel
 } from './MongoToken'
 
+export {
+    MongoAccount
+} from './MongoAccount'
+
+export {
+    MongoCharacter
+} from './MongoCharacter'
+
+export {
+    MongoToken
+} from './MongoToken'
+
 export default class MongoProvider<
 A extends MongoAccount = MongoAccount,
 C extends MongoCharacter = MongoCharacter,
