@@ -44,7 +44,6 @@ export class MongoCharacter implements Character {
     ) {
         if (this.owner !== owner) {
             (<any>this).owner = owner
-            await this.deleteTokens()
         }
 
         if (this.characterName !== characterName) {
