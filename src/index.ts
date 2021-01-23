@@ -8,6 +8,11 @@ import {
 } from 'eve-esi-client'
 
 import {
+    connect,
+    ConnectOptions
+} from 'mongoose'
+
+import {
     DocumentType,
     ReturnModelType
 } from '@typegoose/typegoose'
@@ -32,6 +37,13 @@ export default class MongoProvider implements Provider<
  DocumentType<MongoCharacter>,
  DocumentType<MongoToken>
 > {
+    public constructor (
+        uris: string,
+        options: ConnectOptions
+    ) {
+        connect(uris, options)
+    }
+
     public async getAccount (
         owner: string,
         onLogin?: boolean
