@@ -26,6 +26,6 @@ const esi = new ESI({
 
 ## License
 
-Copyright 2020 Michiel van der Velde.
+Copyright 2020-2021 Michiel van der Velde.
 
 This software is licensed under [the MIT License](LICENSE).
