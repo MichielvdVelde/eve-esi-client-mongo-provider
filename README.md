@@ -34,6 +34,8 @@ const esi = new ESI({
 
 ### Extending the Provider
 
+> ***Note:*** Extending doesn't work yet!
+
 In this example the `MongoAccount` is extended to include an
 `email` field.
 
