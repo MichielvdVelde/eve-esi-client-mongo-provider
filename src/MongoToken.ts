@@ -34,7 +34,7 @@ export class MongoToken implements Token {
     public readonly expires!: Date
 
     @prop({
-        items: String
+        type: String
     })
     public readonly scopes?: string[]
 
