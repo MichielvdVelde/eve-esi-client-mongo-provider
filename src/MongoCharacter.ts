@@ -70,7 +70,7 @@ export class MongoCharacter implements Character {
     ) {
         await MongoTokenModel.deleteMany({
             characterId: this.characterId
-        }).exec()
+        })
     }
     
 }
