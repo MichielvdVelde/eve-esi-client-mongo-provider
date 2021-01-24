@@ -189,4 +189,16 @@ T extends MongoToken = MongoToken
             await token.deleteToken()
         }
     }
+
+    public getAccountModel () {
+        return MongoAccountModel
+    }
+
+    public getCharacterModel () {
+        return MongoCharacterModel
+    }
+
+    public getTokenModel () {
+        return MongoTokenModel
+    }
 }
