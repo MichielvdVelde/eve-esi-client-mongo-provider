@@ -78,5 +78,11 @@ export class MongoToken implements Token {
 }
 
 export const MongoTokenModel = getModelForClass(
-    MongoToken
+    MongoToken,
+    {
+        options: {
+            automaticName: false,
+            customName: 'tokens'
+        }
+    }
 )

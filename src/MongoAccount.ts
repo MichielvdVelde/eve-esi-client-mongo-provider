@@ -49,5 +49,11 @@ export class MongoAccount implements Account {
 }
 
 export const MongoAccountModel = getModelForClass(
-    MongoAccount
+    MongoAccount,
+    {
+        options: {
+            automaticName: false,
+            customName: 'accounts'
+        }
+    }
 )

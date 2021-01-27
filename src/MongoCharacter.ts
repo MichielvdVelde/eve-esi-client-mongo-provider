@@ -76,5 +76,11 @@ export class MongoCharacter implements Character {
 }
 
 export const MongoCharacterModel = getModelForClass(
-    MongoCharacter
+    MongoCharacter,
+    {
+        options: {
+            automaticName: false,
+            customName: 'characters'
+        }
+    }
 )
