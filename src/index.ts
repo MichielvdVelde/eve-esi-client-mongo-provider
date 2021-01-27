@@ -44,14 +44,10 @@ export {
     MongoToken
 } from './MongoToken'
 
-export default class MongoProvider<
-A extends MongoAccount = MongoAccount,
-C extends MongoCharacter = MongoCharacter,
-T extends MongoToken = MongoToken
-> implements Provider<
- DocumentType<A>,
- DocumentType<C>,
- DocumentType<T>
+export default class MongoProvider implements Provider<
+ DocumentType<MongoAccount>,
+ DocumentType<MongoCharacter>,
+ DocumentType<MongoToken>
 > {
     public constructor (
         uris: string,

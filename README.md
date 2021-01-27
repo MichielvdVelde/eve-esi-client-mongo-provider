@@ -32,40 +32,6 @@ const esi = new ESI({
 })
 ```
 
-### Extending the Provider
-
-> ***Note:*** Extending doesn't work yet!
-
-In this example the `MongoAccount` is extended to include an
-`email` field.
-
-```ts
-import {
-    prop
-} from '@typegoose/typegoose'
-
-import {
-    MongoAccount
-} from 'eve-esi-client-mongo-provider'
-
-export default class MyAccount extends MongoAccount {
-    @prop({
-        unique: true
-    })
-    public email!: string
-}
-
-// ...
-
-import MongoProvider from 'eve-esi-client-mongo-provider'
-
-const provider = new MongoProvider<MyAccount>('mongodb://localhost')
-// ...
-const account = await provider.getAccount('<owner hash>')
-account.email = 'brad@example.com'
-await account.save()
-```
-
 ## License
 
 Copyright 2020-2021 Michiel van der Velde.
