@@ -59,7 +59,7 @@ export default class MongoProvider implements Provider<
     public async getAccount (
         owner: string,
         onLogin?: boolean
-    ) {
+    ): Promise<DocumentType<MongoAccount>> {
         const account = await MongoAccountModel.findOne({
             owner
         }).exec()
@@ -77,7 +77,7 @@ export default class MongoProvider implements Provider<
     public async getCharacter (
         characterId: number,
         onLogin?: boolean
-    ) {
+    ): Promise<DocumentType<MongoCharacter>> {
         const character = await MongoCharacterModel.findOne({
             characterId
         }).exec()
@@ -95,7 +95,7 @@ export default class MongoProvider implements Provider<
     public async getToken (
         characterId: number,
         scopes?: string | string[]
-    ) {
+    ): Promise<DocumentType<MongoToken>> {
         if (typeof scopes === 'string') {
             scopes = scopes.split(' ')
         }
@@ -114,7 +114,7 @@ export default class MongoProvider implements Provider<
 
     public async createAccount (
         owner: string
-    ) {
+    ): Promise<DocumentType<MongoAccount>> {
         return MongoAccountModel.create({
             owner,
             lastLoggedIn: new Date()
@@ -125,7 +125,7 @@ export default class MongoProvider implements Provider<
         owner: string,
         characterId: number,
         characterName: string
-    ) {
+    ): Promise<DocumentType<MongoCharacter>> {
         return MongoCharacterModel.create({
             owner,
             characterId,
@@ -140,7 +140,7 @@ export default class MongoProvider implements Provider<
         refreshToken: string,
         expires: Date,
         scopes?: string | string[]
-    ) {
+    ): Promise<DocumentType<MongoToken>> {
         return MongoTokenModel.create({
             characterId,
             accessToken,
@@ -152,7 +152,7 @@ export default class MongoProvider implements Provider<
 
     public async deleteAccount (
         owner: string
-    ) {
+    ): Promise<void> {
         const account = await MongoAccountModel.findOne({
             owner
         }).exec()
@@ -164,7 +164,7 @@ export default class MongoProvider implements Provider<
 
     public async deleteCharacter (
         characterId: number
-    ) {
+    ): Promise<void> {
         const character = await MongoCharacterModel.findOne({
             characterId
         }).exec()
@@ -176,7 +176,7 @@ export default class MongoProvider implements Provider<
 
     public async deleteToken (
         accessToken: string
-    ) {
+    ): Promise<void> {
         const token = await MongoTokenModel.findOne({
             accessToken
         }).exec()
