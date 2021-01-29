@@ -13,22 +13,62 @@ npm i eve-esi-client-mongo-provider [--save]
 
 ## Usage
 
-See [eve-esi-client](https://github.com/MichielvdVelde/eve-esi)
-for a more in-depth example.
-
 ```ts
 import ESI from 'eve-esi-client'
 import MongoProvider from 'eve-esi-client-mongo-provider'
 
-const provider = new MongoProvider('mongodb://localhost', {
+const provider = new MongoProvider('mongodb://localhost/esi', {
+  connectionOptions: {
     useNewUrlParser: true,
-    useUnifiedTopology: true,
-    dbName: 'esi'
+    useUnifiedTopology: true
+  }
 })
 
 const esi = new ESI({
-    provider,
-    // ...
+  provider
+  // ...
+})
+```
+
+## Extending models
+
+The `Account`, `Character`, and `Token` models can de extended.
+Below is an example of how to add an `email` field to an account.
+
+```ts
+import MongoProvider, {
+  MongoAccount
+} from 'eve-esi-client-mongo-provider'
+
+import {
+  prop
+} from '@typegoose/typegoose'
+
+// Our new model must extend the old one
+class MyAccount extends MongoAccount {
+  @prop({ unique: true })
+  public email?: string
+}
+
+// Note the type
+const provider = new MongoProvider<MyAccount>('mongodb://localhost/esi_test', {
+  connectionOptions: {
+    useCreateIndex: true,
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  },
+  models: {
+    // Replace MongoAccount with MyAccount
+    account: MyAccount
+  }
+})
+
+// ...
+
+provider.getAccount('owner').then(async account => {
+  // Will have correct type checking
+  account.email = 'bob@example.com'
+  await account.save()
 })
 ```
 

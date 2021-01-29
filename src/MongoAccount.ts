@@ -1,59 +1,41 @@
 'use strict'
 
 import {
-    Account
+  Account
 } from 'eve-esi-client'
 
 import {
-    prop,
-    DocumentType,
-    getModelForClass
+  prop,
+  DocumentType
 } from '@typegoose/typegoose'
 
-import {
-    MongoCharacterModel
-} from './MongoCharacter'
+export default class MongoAccount implements Account {
+  @prop({ unique: true, required: true, immutable: true })
+  public readonly owner!: string
 
-export class MongoAccount implements Account {
-    @prop({
-        unique: true,
-        required: true,
-        immutable: true
-    })
-    public readonly owner!: string
+  @prop({ required: true, immutable: true })
+  public readonly createdOn!: Date
 
-    @prop({
-        required: true
-    })
-    public readonly lastLoggedIn!: Date
+  @prop({ required: true })
+  public lastLoggedIn!: Date
 
-    public async deleteAccount (
-        this: DocumentType<MongoAccount>
-    ) {
-        // delete characters
-        await this.deleteCharacters()
-        
-        // delete account
-        await this.delete()
+  public async deleteAccount (
+    this: DocumentType<MongoAccount>
+  ) {
+    await this.deleteCharacters()
+    await this.deleteOne()
+  }
+
+  public async deleteCharacters (
+    this: DocumentType<MongoAccount>
+  ) {
+    const characters = await this.model('characters').find({
+      owner: this.owner
+    }).exec()
+
+    for (const character of characters) {
+      // @ts-ignore
+      await character.deleteCharacter()
     }
-
-    public async deleteCharacters () {
-        const characters = await MongoCharacterModel.find({
-            owner: this.owner
-        }).exec()
-
-        for (const character of characters) {
-            await character.deleteCharacter()
-        }
-    }
+  }
 }
-
-export const MongoAccountModel = getModelForClass(
-    MongoAccount,
-    {
-        options: {
-            automaticName: false,
-            customName: 'accounts'
-        }
-    }
-)

@@ -1,86 +1,63 @@
 'use strict'
 
 import {
-    Character
+  Character
 } from 'eve-esi-client'
 
 import {
-    prop,
-    DocumentType,
-    getModelForClass
+  prop,
+  DocumentType
 } from '@typegoose/typegoose'
 
-import {
-    MongoTokenModel
-} from './MongoToken'
+export default class MongoCharacter implements Character {
+  @prop({ index: true, required: true })
+  public readonly owner!: string
 
-export class MongoCharacter implements Character {
-    @prop({
-        unique: true,
-        required: true,
-        immutable: true
-    })
-    public readonly characterId!: number
-    
-    @prop({
-        required: true
-    })
-    public readonly owner!: string
+  @prop({ unique: true, required: true })
+  public readonly characterId!: number
 
-    @prop({
-        required: true
-    })
-    public readonly characterName!: string
+  @prop({ required: true })
+  public readonly characterName!: string
 
-    @prop({
-        required: true
-    })
-    public readonly lastLoggedIn!: Date
+  @prop({ required: true, immutable: true })
+  public readonly createdOn!: Date
 
-    public async updateCharacter (
-        this: DocumentType<MongoCharacter>,
-        owner: string,
-        characterName: string
-    ) {
-        if (this.owner !== owner) {
-            (<any>this).owner = owner
-        }
+  @prop({ required: true })
+  public lastLoggedIn!: Date
 
-        if (this.characterName !== characterName) {
-            (<any>this).characterName = characterName
-        }
-
-        if (this.isModified()) {
-            await this.save()
-        }
+  public async updateCharacter (
+    this: DocumentType<MongoCharacter>,
+    owner: string,
+    characterName: string
+  ): Promise<void> {
+    if (this.owner !== owner) {
+      await this.deleteTokens()
+      // @ts-ignore
+      this.owner = owner
     }
 
-    public async deleteCharacter (
-        this: DocumentType<MongoCharacter>
-    ) {
-        // delete tokens
-        await this.deleteTokens()
-
-        // delete character
-        await this.delete()
+    if (this.characterName !== characterName) {
+      // @ts-ignore
+      this.characterName = characterName
     }
 
-    public async deleteTokens (
-        this: DocumentType<MongoCharacter>
-    ) {
-        await MongoTokenModel.deleteMany({
-            characterId: this.characterId
-        })
+    if (this.isModified()) {
+      await this.save()
     }
-    
+  }
+
+  public async deleteCharacter (
+    this: DocumentType<MongoCharacter>
+  ): Promise<void> {
+    await this.deleteTokens()
+    await this.deleteOne()
+  }
+
+  public async deleteTokens (
+    this: DocumentType<MongoCharacter>
+  ): Promise<void> {
+    await this.model('tokens').deleteMany({
+      characterId: this.characterId
+    })
+  }
 }
-
-export const MongoCharacterModel = getModelForClass(
-    MongoCharacter,
-    {
-        options: {
-            automaticName: false,
-            customName: 'characters'
-        }
-    }
-)
