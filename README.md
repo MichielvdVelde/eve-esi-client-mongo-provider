@@ -5,6 +5,9 @@ MongoDB provider for [eve-esi-client](https://github.com/MichielvdVelde/eve-esi)
 This provider uses [typegoose](https://github.com/typegoose/typegoose) and
 [mongoose](https://github.com/Automattic/mongoose).
 
+> I accept donations in ISK. If you want to donate, send your ISK to
+> `Dakara Chart` in Eve Online.
+
 ## Install
 
 ```
