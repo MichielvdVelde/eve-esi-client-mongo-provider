@@ -28,7 +28,7 @@
   "license": "MIT",
   "dependencies": {
     "@typegoose/typegoose": "^7.4.8",
-    "mongoose": "^5.10.18"
+    "mongoose": "5.10.18"
   },
   "devDependencies": {
     "@types/mongoose": "^5.10.2"
