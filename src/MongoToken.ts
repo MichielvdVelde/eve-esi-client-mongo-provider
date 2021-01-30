@@ -64,6 +64,6 @@ export default class MongoToken implements Token {
   public async deleteToken (
     this: DocumentType<MongoToken>
   ) {
-    await this.deleteOne()
+    await this.remove()
   }
 }

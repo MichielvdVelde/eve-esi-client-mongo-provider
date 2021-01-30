@@ -23,7 +23,7 @@ export default class MongoAccount implements Account {
     this: DocumentType<MongoAccount>
   ) {
     await this.deleteCharacters()
-    await this.deleteOne()
+    await this.remove()
   }
 
   public async deleteCharacters (

@@ -49,7 +49,7 @@ export default class MongoCharacter implements Character {
   public async deleteCharacter (
     this: DocumentType<MongoCharacter>
   ): Promise<void> {
-    await this.deleteOne()
+    await this.remove()
   }
 
   public async deleteTokens (
