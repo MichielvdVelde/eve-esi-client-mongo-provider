@@ -56,25 +56,21 @@ export default class MongoProvider<
   ) {
     super()
 
-    if (!options.models) {
-      options.models = {}
-    }
-
     createConnection(uris, options.connectionOptions).then(connection => {
       this.#connection = connection
 
       this.#accountModel = this.getModelForClass(
-        options.models.account ?? MongoAccount,
+        options.models?.account ?? MongoAccount,
         'accounts'
       )
 
       this.#characterModel = this.getModelForClass(
-        options.models.character ?? MongoCharacter,
+        options.models?.character ?? MongoCharacter,
         'characters'
       )
 
       this.#tokenModel = this.getModelForClass(
-        options.models.token ?? MongoToken,
+        options.models?.token ?? MongoToken,
         'tokens'
       )
 
