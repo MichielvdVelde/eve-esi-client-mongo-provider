@@ -10,7 +10,7 @@ import {
   DocumentType
 } from '@typegoose/typegoose'
 
-@modelOptions({ options: { customName: 'token' } })
+@modelOptions({ options: { customName: 'Token' } })
 export default class MongoToken implements Token {
   @prop({ index: true, required: true })
   public readonly characterId!: number

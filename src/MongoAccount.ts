@@ -10,7 +10,7 @@ import {
   DocumentType
 } from '@typegoose/typegoose'
 
-@modelOptions({ options: { customName: 'account' } })
+@modelOptions({ options: { customName: 'Account' } })
 export default class MongoAccount implements Account {
   @prop({ unique: true, required: true, immutable: true })
   public readonly owner!: string
@@ -31,7 +31,7 @@ export default class MongoAccount implements Account {
   public async deleteCharacters (
     this: DocumentType<MongoAccount>
   ) {
-    const characters = await this.model('character').find({
+    const characters = await this.model('Character').find({
       owner: this.owner
     }).exec()
 

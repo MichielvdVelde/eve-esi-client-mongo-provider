@@ -61,17 +61,17 @@ export default class MongoProvider<
 
       this.#accountModel = this.getModelForClass(
         options.models?.account ?? MongoAccount,
-        'account'
+        'Account'
       )
 
       this.#characterModel = this.getModelForClass(
         options.models?.character ?? MongoCharacter,
-        'character'
+        'Character'
       )
 
       this.#tokenModel = this.getModelForClass(
         options.models?.token ?? MongoToken,
-        'token'
+        'Token'
       )
 
       this.emit('ready')
@@ -240,7 +240,7 @@ export default class MongoProvider<
     return getModelForClass(cl, {
       existingConnection: this.#connection,
       schemaOptions: {
-        collection: `${name}s`
+        collection: `${name}s`.toLowerCase()
       }
     })
   }
