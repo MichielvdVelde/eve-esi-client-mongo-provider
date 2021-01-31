@@ -198,28 +198,17 @@ export default class MongoProvider<
   public async deleteAccount (
     owner: string
   ): Promise<void> {
-    // @ts-ignore
-    const characters = await this.#characterModel.find({
-      owner
-    }).exec()
+    const account = await this.getAccount(owner)
 
-    for (const character of characters) {
-      await character.deleteCharacter()
+    if (account) {
+      await account.deleteAccount()
     }
-
-    // @ts-ignore
-    await this.#accountModel.deleteOne({
-      owner
-    })
   }
 
   public async deleteCharacter (
     characterId: number
   ): Promise<void> {
-    // @ts-ignore
-    const character = await this.#characterModel.findOne({
-      characterId
-    }).exec()
+    const character = await this.getCharacter(characterId)
 
     if (character) {
       await character.deleteCharacter()
