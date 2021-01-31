@@ -10,7 +10,7 @@ import {
 } from '@typegoose/typegoose'
 
 export default class MongoToken implements Token {
-  @prop({ required: true })
+  @prop({ index: true, required: true })
   public readonly characterId!: number
 
   @prop({ unique: true, required: true })

@@ -13,7 +13,7 @@ export default class MongoCharacter implements Character {
   @prop({ index: true, required: true })
   public readonly owner!: string
 
-  @prop({ unique: true, required: true })
+  @prop({ unique: true, required: true, immutable: true })
   public readonly characterId!: number
 
   @prop({ required: true })
