@@ -29,7 +29,7 @@ export default class MongoAccount implements Account {
   public async deleteCharacters (
     this: DocumentType<MongoAccount>
   ) {
-    const characters = await this.model('characters').find({
+    const characters = await this.model('character').find({
       owner: this.owner
     }).exec()
 

@@ -55,7 +55,7 @@ export default class MongoCharacter implements Character {
   public async deleteTokens (
     this: DocumentType<MongoCharacter>
   ): Promise<void> {
-    await this.model('tokens').deleteMany({
+    await this.model('token').deleteMany({
       characterId: this.characterId
     })
   }

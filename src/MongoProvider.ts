@@ -61,17 +61,17 @@ export default class MongoProvider<
 
       this.#accountModel = this.getModelForClass(
         options.models?.account ?? MongoAccount,
-        'accounts'
+        'account'
       )
 
       this.#characterModel = this.getModelForClass(
         options.models?.character ?? MongoCharacter,
-        'characters'
+        'character'
       )
 
       this.#tokenModel = this.getModelForClass(
         options.models?.token ?? MongoToken,
-        'tokens'
+        'token'
       )
 
       this.emit('ready')
@@ -244,7 +244,7 @@ export default class MongoProvider<
         customName: name
       },
       schemaOptions: {
-        collection: name
+        collection: `${name}s`
       }
     })
   }
