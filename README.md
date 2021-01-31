@@ -22,6 +22,7 @@ import MongoProvider from 'eve-esi-client-mongo-provider'
 
 const provider = new MongoProvider('mongodb://localhost/esi', {
   connectionOptions: {
+    useCreateIndex: true,
     useNewUrlParser: true,
     useUnifiedTopology: true
   }
