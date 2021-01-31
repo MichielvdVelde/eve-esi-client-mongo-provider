@@ -5,10 +5,12 @@ import {
 } from 'eve-esi-client'
 
 import {
+  modelOptions,
   prop,
   DocumentType
 } from '@typegoose/typegoose'
 
+@modelOptions({ options: { customName: 'character' } })
 export default class MongoCharacter implements Character {
   @prop({ index: true, required: true })
   public readonly owner!: string

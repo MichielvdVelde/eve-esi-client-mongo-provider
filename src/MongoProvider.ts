@@ -239,10 +239,6 @@ export default class MongoProvider<
     // @ts-ignore
     return getModelForClass(cl, {
       existingConnection: this.#connection,
-      options: {
-        automaticName: false,
-        customName: name
-      },
       schemaOptions: {
         collection: `${name}s`
       }

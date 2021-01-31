@@ -5,10 +5,12 @@ import {
 } from 'eve-esi-client'
 
 import {
+  modelOptions,
   prop,
   DocumentType
 } from '@typegoose/typegoose'
 
+@modelOptions({ options: { customName: 'account' } })
 export default class MongoAccount implements Account {
   @prop({ unique: true, required: true, immutable: true })
   public readonly owner!: string

@@ -5,10 +5,12 @@ import {
 } from 'eve-esi-client'
 
 import {
+  modelOptions,
   prop,
   DocumentType
 } from '@typegoose/typegoose'
 
+@modelOptions({ options: { customName: 'token' } })
 export default class MongoToken implements Token {
   @prop({ index: true, required: true })
   public readonly characterId!: number
