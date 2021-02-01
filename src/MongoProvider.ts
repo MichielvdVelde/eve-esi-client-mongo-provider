@@ -224,6 +224,28 @@ export default class MongoProvider<
     })
   }
 
+  public async hasToken (
+    characterId: number,
+    scopes?: string | string[]
+  ): Promise<boolean> {
+    if (scopes) {
+      if (typeof scopes === 'string') {
+        scopes = scopes.split(' ')
+      }
+
+      // @ts-ignore
+      return this.#tokenModel.exists({
+        characterId,
+        scopes: { $all: scopes }
+      })
+    }
+
+    // @ts-ignore
+    return this.#tokenModel.exists({
+      characterId
+    })
+  }
+
   private getModelForClass<T> (cl: T, name: string) {
     // @ts-ignore
     return getModelForClass(cl, {
