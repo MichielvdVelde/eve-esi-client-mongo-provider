@@ -256,10 +256,7 @@ export default class MongoProvider<
   private getModelForClass<T> (cl: T, name: string) {
     // @ts-ignore
     return getModelForClass(cl, {
-      existingConnection: this.#connection,
-      schemaOptions: {
-        collection: `${name}s`.toLowerCase()
-      }
+      existingConnection: this.#connection
     })
   }
 }
