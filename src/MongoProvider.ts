@@ -38,6 +38,7 @@ export default class MongoProvider<
   DocumentType<T>
 > {
   #connection: Connection
+  #ready = false
 
   #accountModel: ReturnModelType<AnyParamConstructor<A>>
   #characterModel: ReturnModelType<AnyParamConstructor<C>>
@@ -74,12 +75,18 @@ export default class MongoProvider<
         'Token'
       )
 
+      this.#ready = true
+      this.#connection.on('close', () => this.#ready = false)
       this.emit('ready')
     }).catch(err => this.emit('error', err))
   }
 
   public get connection () {
     return this.#connection
+  }
+
+  public get ready () {
+    return this.#ready
   }
 
   public async getAccount (
