@@ -61,18 +61,15 @@ export default class MongoProvider<
       this.#connection = connection
 
       this.#accountModel = this.getModelForClass(
-        options.models?.account ?? MongoAccount,
-        'Account'
+        options.models?.account ?? MongoAccount
       )
 
       this.#characterModel = this.getModelForClass(
-        options.models?.character ?? MongoCharacter,
-        'Character'
+        options.models?.character ?? MongoCharacter
       )
 
       this.#tokenModel = this.getModelForClass(
-        options.models?.token ?? MongoToken,
-        'Token'
+        options.models?.token ?? MongoToken
       )
 
       this.#ready = true
@@ -253,7 +250,7 @@ export default class MongoProvider<
     })
   }
 
-  private getModelForClass<T> (cl: T, name: string) {
+  private getModelForClass<T> (cl: T) {
     // @ts-ignore
     return getModelForClass(cl, {
       existingConnection: this.#connection
