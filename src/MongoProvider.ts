@@ -75,7 +75,10 @@ export default class MongoProvider<
       this.#ready = true
       this.#connection.on('close', () => this.#ready = false)
       this.emit('ready')
-    }).catch(err => this.emit('error', err))
+    }).catch(err => {
+      this.#ready = false
+      this.emit('error', err)
+    })
   }
 
   public get connection () {
