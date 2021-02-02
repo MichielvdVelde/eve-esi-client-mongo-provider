@@ -24,17 +24,24 @@ const provider = new MongoProvider<MyAccount>('mongodb://localhost/esi-test', {
 })
 
 provider.once('ready', async () => {
+  console.log('ready')
+
   const account = await provider.createAccount('owner1')
-  const character = await provider.createCharacter(account.owner, 123, 'Dakara Chart')
+  const character = await provider.createCharacter(
+    account.owner,
+    123,
+    'Dakara Chart'
+  )
 
   account.email = 'dakara@example.com'
-
-  if (account.isModified()) {
-    await account.save()
-  }
+  await account.save()
 
   console.log('account', account)
   console.log('character', character)
 
   await account.deleteAccount()
+})
+
+provider.once('error', err => {
+  console.error(err)
 })
