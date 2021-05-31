@@ -1,6 +1,6 @@
 {
   "name": "eve-esi-client-mongo-provider",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "MongoDB provider for eve-esi-client",
   "main": "./dist/index.js",
   "author": "Michiel van der Velde <michiel@michielvdvelde.nl>",
